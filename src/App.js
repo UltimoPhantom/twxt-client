@@ -1,25 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import TextForm from './components/TextForm';
+import TextCloud from './components/TextCloud';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="min-h-screen p-4 bg-gradient-to-br from-blue-100 to-indigo-100">
+      <h1 className="text-3xl font-bold text-center text-indigo-700 mb-6">
+        Text Cloud
+      </h1>
+      <TextForm />
+      <TextCloud />
     </div>
   );
 }
-
-export default App;
