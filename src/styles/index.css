@@ -1,0 +1,21 @@
+/* src/styles/index.css */
+
+/* Example: custom text cloud style */
+.text-cloud {
+  background-color: #e0f7fa;
+  padding: 12px 20px;
+  border-radius: 9999px; /* fully rounded */
+  display: inline-block;
+  margin: 8px;
+  font-weight: 600;
+  color: #00796b;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Responsive example */
+@media (max-width: 640px) {
+  .text-cloud {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+}

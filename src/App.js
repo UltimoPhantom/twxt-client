@@ -1,5 +1,6 @@
-import TextForm from './components/TextForm';
-import TextCloud from './components/TextCloud';
+import TextForm from './components/TextForm.jsx';
+import TextCloud from './components/TextCloud.jsx';
+
 
 export default function App() {
   return (
