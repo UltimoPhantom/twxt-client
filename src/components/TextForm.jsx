@@ -28,7 +28,7 @@ export default function TextForm() {
         />
         <button
           type="submit"
-          className="px-10 py-5 text-lg font-semibold text-white
+          className="px-10 py-5 text-2xl font-semibold text-white
                    bg-gradient-to-r from-blue-600 to-blue-700
                    hover:from-blue-500 hover:to-blue-600
                    focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50

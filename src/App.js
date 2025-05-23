@@ -5,7 +5,7 @@ export default function App() {
   return (
     <div 
       className="min-h-screen p-8"
-      style={{ backgroundColor: '#2a2a28' }}
+      style={{ backgroundColor: '#f5f5f0' }}
     >
       <h1 className="text-7xl font-black text-center text-gray-100 mb-12 tracking-wider
                      drop-shadow-2xl bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-400 
