@@ -7,13 +7,23 @@ export default function TextForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!text.trim()) return;
-    
+
     try {
-      await axios.post('http://localhost:5000/api/texts', { text_content: text });
+      const response = await axios.post('http://localhost:5000/api/texts', {
+        text_content: text,
+      });
       setText('');
-      window.dispatchEvent(new Event('text-added'));
+
+      // Dispatch event with the new text data so TextCloud can add it directly to the beginning
+      window.dispatchEvent(
+        new CustomEvent('text-added', {
+          detail: { newText: response.data },
+        })
+      );
     } catch (error) {
       console.error('Error adding text:', error);
+      // Fallback: dispatch event without data to trigger refetch
+      window.dispatchEvent(new Event('text-added'));
     }
   };
 
