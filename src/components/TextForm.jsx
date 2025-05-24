@@ -7,9 +7,14 @@ export default function TextForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!text.trim()) return;
-    await axios.post('http://localhost:5000/api/texts', { text_content: text });
-    setText('');
-    window.dispatchEvent(new Event('text-added')); // trigger reload
+    
+    try {
+      await axios.post('http://localhost:5000/api/texts', { text_content: text });
+      setText('');
+      window.dispatchEvent(new Event('text-added'));
+    } catch (error) {
+      console.error('Error adding text:', error);
+    }
   };
 
   return (

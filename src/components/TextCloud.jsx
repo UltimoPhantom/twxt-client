@@ -8,7 +8,6 @@ export default function TextCloud() {
   const [deletedItem, setDeletedItem] = useState(null);
   const [undoTimer, setUndoTimer] = useState(null);
 
-  // Add custom CSS for animations
   const customStyles = `
     @keyframes slide-up {
       from {
@@ -26,8 +25,12 @@ export default function TextCloud() {
   `;
 
   const fetchTexts = async () => {
-    const res = await axios.get('http://localhost:5000/api/texts');
-    setTexts(res.data);
+    try {
+      const res = await axios.get('http://localhost:5000/api/texts');
+      setTexts(res.data);
+    } catch (error) {
+      console.error('Error fetching texts:', error);
+    }
   };
 
   const isUrl = (text) => {
@@ -43,35 +46,29 @@ export default function TextCloud() {
     try {
       await navigator.clipboard.writeText(text);
       setCopiedId(id);
-      setTimeout(() => setCopiedId(null), 2000); // Reset after 2 seconds
+      setTimeout(() => setCopiedId(null), 2000);
     } catch (err) {
       console.error('Failed to copy text: ', err);
     }
   };
 
   const deleteText = async (id, e) => {
-    e.stopPropagation(); // Prevent triggering the main click handler
+    e.stopPropagation();
     try {
       setDeletingId(id);
       
-      // Store the item for potential undo
       const itemToDelete = texts.find(t => t._id === id);
       
-      // Remove from UI immediately
       setTexts(texts.filter(t => t._id !== id));
       
-      // Delete from backend
       await axios.delete(`http://localhost:5000/api/texts/${id}`);
       
-      // Set up undo functionality
       setDeletedItem(itemToDelete);
       
-      // Clear any existing timer
       if (undoTimer) {
         clearTimeout(undoTimer);
       }
       
-      // Set timer to clear undo option after 5 seconds
       const timer = setTimeout(() => {
         setDeletedItem(null);
       }, 5000);
@@ -79,7 +76,6 @@ export default function TextCloud() {
       
     } catch (err) {
       console.error('Failed to delete text: ', err);
-      // Restore item if delete failed
       fetchTexts();
     } finally {
       setDeletingId(null);
@@ -90,21 +86,17 @@ export default function TextCloud() {
     if (!deletedItem) return;
     
     try {
-      // Clear the undo timer
       if (undoTimer) {
         clearTimeout(undoTimer);
         setUndoTimer(null);
       }
       
-      // Recreate the item in backend
       const response = await axios.post('http://localhost:5000/api/texts', {
         text_content: deletedItem.text_content
       });
       
-      // Add back to UI
-      setTexts(prevTexts => [...prevTexts, response.data]);
+      setTexts(prevTexts => [response.data, ...prevTexts]);
       
-      // Clear deleted item
       setDeletedItem(null);
       
     } catch (err) {
@@ -122,15 +114,20 @@ export default function TextCloud() {
 
   useEffect(() => {
     fetchTexts();
-    window.addEventListener('text-added', fetchTexts);
+    
+    const handleTextAdded = () => {
+      fetchTexts();
+    };
+    
+    window.addEventListener('text-added', handleTextAdded);
+    
     return () => {
-      window.removeEventListener('text-added', fetchTexts);
-      // Clear timer on cleanup
+      window.removeEventListener('text-added', handleTextAdded);
       if (undoTimer) {
         clearTimeout(undoTimer);
       }
     };
-  }, [undoTimer]);
+  }, []);
 
   return (
     <>
@@ -140,7 +137,6 @@ export default function TextCloud() {
         style={{ backgroundColor: '#f5f5f0' }}
       >
         <div className="flex flex-wrap gap-8 justify-center max-w-7xl mx-auto">
-          {/* Undo button - appears when item is deleted */}
           {deletedItem && (
             <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50
                           bg-gray-800 text-white px-6 py-3 rounded-2xl shadow-xl
@@ -189,7 +185,6 @@ export default function TextCloud() {
                 minWidth: '350px'
               }}
             >
-              {/* Delete button - appears on hover */}
               <button
                 onClick={(e) => deleteText(t._id, e)}
                 disabled={deletingId === t._id}
@@ -202,20 +197,17 @@ export default function TextCloud() {
                 title="Delete text"
               >
                 {deletingId === t._id ? (
-                  // Loading spinner
                   <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
                 ) : (
-                  // Trash icon
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd"></path>
                   </svg>
                 )}
               </button>
 
-              {/* Hover tooltip */}
               <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 
                             bg-gray-900 text-white px-4 py-2 rounded-lg text-base font-medium
                             opacity-0 group-hover:opacity-100 transition-opacity duration-200
@@ -226,12 +218,10 @@ export default function TextCloud() {
                     ? '🔗 Click to open' 
                     : '📋 Click to copy'
                 }
-                {/* Arrow */}
                 <div className="absolute top-full left-1/2 transform -translate-x-1/2 
                               border-4 border-transparent border-t-gray-900"></div>
               </div>
 
-              {/* Content */}
               <div className={`
                 text-3xl font-bold leading-relaxed break-words font-serif
                 ${isUrl(t.text_content) ? 'text-white' : 'text-gray-700'}
@@ -250,7 +240,6 @@ export default function TextCloud() {
                 )}
               </div>
 
-              {/* Copy indicator */}
               {copiedId === t._id && (
                 <div className="absolute top-2 right-2">
                   <svg className="w-5 h-5 text-gray-800" fill="currentColor" viewBox="0 0 20 20">
