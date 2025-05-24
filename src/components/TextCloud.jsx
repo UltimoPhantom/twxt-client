@@ -27,7 +27,6 @@ export default function TextCloud() {
   const fetchTexts = async () => {
     try {
       const res = await axios.get('http://localhost:5000/api/texts');
-      // Ensure texts are sorted by creation date (newest first)
       const sortedTexts = res.data.sort(
         (a, b) =>
           new Date(b.added_date || b.createdAt || b._id) -
@@ -100,7 +99,6 @@ export default function TextCloud() {
         text_content: deletedItem.text_content,
       });
 
-      // Add the restored item to the beginning of the array
       setTexts((prevTexts) => [response.data, ...prevTexts]);
 
       setDeletedItem(null);
@@ -117,13 +115,10 @@ export default function TextCloud() {
     }
   };
 
-  // Handle new text addition from form
   const handleTextAdded = async (event) => {
     if (event.detail && event.detail.newText) {
-      // Add new text to the beginning of the array
       setTexts((prevTexts) => [event.detail.newText, ...prevTexts]);
     } else {
-      // Fallback: refetch all texts if no specific text data provided
       fetchTexts();
     }
   };

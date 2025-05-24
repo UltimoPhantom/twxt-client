@@ -14,7 +14,6 @@ export default function TextForm() {
       });
       setText('');
 
-      // Dispatch event with the new text data so TextCloud can add it directly to the beginning
       window.dispatchEvent(
         new CustomEvent('text-added', {
           detail: { newText: response.data },
@@ -22,7 +21,6 @@ export default function TextForm() {
       );
     } catch (error) {
       console.error('Error adding text:', error);
-      // Fallback: dispatch event without data to trigger refetch
       window.dispatchEvent(new Event('text-added'));
     }
   };
