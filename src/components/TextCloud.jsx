@@ -139,8 +139,14 @@ export default function TextCloud() {
   return (
     <>
       <style>{customStyles}</style>
-      <div className="min-h-screen p-4 md:p-8" style={{ backgroundColor: '#edede1' }}>
-        <div className="flex flex-wrap gap-8 w-full" style={{ justifyContent: 'flex-start' }}>
+      <div
+        className="min-h-screen p-4 md:p-8"
+        style={{ backgroundColor: '#edede1' }}
+      >
+        <div
+          className="flex flex-wrap gap-8 w-full"
+          style={{ justifyContent: 'flex-start' }}
+        >
           {deletedItem && (
             <div
               className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50
@@ -199,14 +205,18 @@ export default function TextCloud() {
                 maxWidth: '90%',
                 borderRadius: '0px',
                 boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                transition: 'box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out',
-                fontFamily: 'Suisse Intl, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif'
+                transition:
+                  'box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out',
+                fontFamily:
+                  'Suisse Intl, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '8px 10px 0px rgba(0, 0, 0, 1)';
+                e.currentTarget.style.boxShadow =
+                  '8px 10px 0px rgba(0, 0, 0, 1)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+                e.currentTarget.style.boxShadow =
+                  '0 4px 6px rgba(0, 0, 0, 0.1)';
               }}
             >
               <button
@@ -217,10 +227,10 @@ export default function TextCloud() {
                          transition-opacity duration-200
                          focus:opacity-100 focus:outline-none
                          disabled:opacity-50 disabled:cursor-not-allowed"
-                style={{ 
+                style={{
                   borderRadius: '0',
                   backgroundColor: '#edede1',
-                  border: '1px solid #000000'
+                  border: '1px solid #000000',
                 }}
                 title="Delete text"
               >
@@ -247,11 +257,7 @@ export default function TextCloud() {
                     ></path>
                   </svg>
                 ) : (
-                  <svg
-                    className="w-5 h-5"
-                    fill="#000000"
-                    viewBox="0 0 20 20"
-                  >
+                  <svg className="w-5 h-5" fill="#000000" viewBox="0 0 20 20">
                     <path
                       fillRule="evenodd"
                       d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
@@ -261,12 +267,13 @@ export default function TextCloud() {
                 )}
               </button>
 
-{/* Popup removed as requested */}
+              {/* Popup removed as requested */}
 
               <div
                 className="text-3xl font-bold leading-relaxed break-words text-gray-700"
                 style={{
-                  fontFamily: 'Suisse Intl, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif',
+                  fontFamily:
+                    'Suisse Intl, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif',
                   display: 'inline-block', // Display as inline-block to size based on content
                   maxWidth: '100%', // Ensure it doesn't overflow its container
                 }}
@@ -310,8 +317,13 @@ export default function TextCloud() {
         </div>
 
         {texts.length === 0 && !deletedItem && (
-          <div className="text-center text-gray-400 text-2xl mt-20" 
-               style={{fontFamily: 'Suisse Intl, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif'}}>
+          <div
+            className="text-center text-gray-400 text-2xl mt-20"
+            style={{
+              fontFamily:
+                'Suisse Intl, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif',
+            }}
+          >
             No texts added yet. Start by adding some content!
           </div>
         )}

@@ -1,52 +1,172 @@
-<td style="background-color: #FFFFFF;border: 1px solid #EFF6F8;padding: 32px;" class="card-content">
-    <p style="font-style: Helvetica;font-weight: 700;color: #171717;margin: 0;font-size: 20px;line-height: 28px;" class="card-title">{{title}}</p>
-    {{#items}}
-        <table style="width:100%;">
-            <tr><td style="height: 32px;" class="cardGap"><div ></div></td></tr>
-            <tr style="vertical-align: middle;width: 100%;">
-                <td>
-                    <div style="display: inline-block;vertical-align: middle;" class="avatar">
-                        <img style="display: inline-block;object-fit: contain;background-color: #EDEDED;height: 32px;width: 32px;" width="32" height="32" src={{image1}} alt="Image"/>
-                    </div>
-                </td>
-                {{#image2}}
-                    <td>
-                        <div style="display: inline-block;vertical-align: middle;margin-left:2px" class="avatar">
-                            <img style="display: inline-block;object-fit: contain;background-color: #EDEDED;height: 32px;width: 32px;" width="32" height="32" src={{image2}} alt="Image"/>
-                        </div>
-                    </td>
-                {{/image2}}
-                <td style="width:10px;padding:0;margin:0;" class="item-gap"></td>
-                <td ><p style="font-style: Helvetica;font-weight: 400; color: #171717;margin: 0;font-size: 16px;line-height: 24px;" class="card-text"><span style="font-weight: 700;">{{peopleNames}}</span>{{text1}}<span style="font-weight: 700;">{{groupName}}</span>{{text2}}.</p></td>
-                <td style="width:10px;padding:0;margin:0;" class="item-gap"></td>
-                <td align="right">
-                    <table style="width: 111px; border-spacing: 0; border: 1px solid #2760EA;" cellpadding="0" cellspacing="0" class="card-action-secondary-button-width">
-                        <tr>
-                          <td style="height: 34px; vertical-align: middle; text-align: center; padding: 0;" class="card-action-secondary-button-height">
-                            <a href="{{appBaseUri}}group/{{groupId}}/members?join-requests=true&source=email&emailType=network_digest" target="_blank" style="text-decoration: none; display: block;">
-                              <span style="color: #2760EA; font-size: 14px; font-weight: 700;text-decoration: none !important;" class="card-action-secondary-button-font">{{actionText}}</span>
-                            </a>
-                          </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
+<td
+  style="background-color: #ffffff; border: 1px solid #eff6f8; padding: 32px"
+  class="card-content"
+>
+  <p
+    style="
+      font-style: Helvetica;
+      font-weight: 700;
+      color: #171717;
+      margin: 0;
+      font-size: 20px;
+      line-height: 28px;
+    "
+    class="card-title"
+  >
+    {{title}}
+  </p>
+  {{#items}}
+  <table style="width: 100%">
+    <tr>
+      <td style="height: 32px" class="cardGap"><div></div></td>
+    </tr>
+    <tr style="vertical-align: middle; width: 100%">
+      <td>
+        <div
+          style="display: inline-block; vertical-align: middle"
+          class="avatar"
+        >
+          <img
+            style="
+              display: inline-block;
+              object-fit: contain;
+              background-color: #ededed;
+              height: 32px;
+              width: 32px;
+            "
+            width="32"
+            height="32"
+            src="{{image1}}"
+            alt="Image"
+          />
+        </div>
+      </td>
+      {{#image2}}
+      <td>
+        <div
+          style="
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 2px;
+          "
+          class="avatar"
+        >
+          <img
+            style="
+              display: inline-block;
+              object-fit: contain;
+              background-color: #ededed;
+              height: 32px;
+              width: 32px;
+            "
+            width="32"
+            height="32"
+            src="{{image2}}"
+            alt="Image"
+          />
+        </div>
+      </td>
+      {{/image2}}
+      <td style="width: 10px; padding: 0; margin: 0" class="item-gap"></td>
+      <td>
+        <p
+          style="
+            font-style: Helvetica;
+            font-weight: 400;
+            color: #171717;
+            margin: 0;
+            font-size: 16px;
+            line-height: 24px;
+          "
+          class="card-text"
+        >
+          <span style="font-weight: 700">{{peopleNames}}</span>{{text1}}<span
+            style="font-weight: 700"
+            >{{groupName}}</span
+          >{{text2}}.
+        </p>
+      </td>
+      <td style="width: 10px; padding: 0; margin: 0" class="item-gap"></td>
+      <td align="right">
+        <table
+          style="width: 111px; border-spacing: 0; border: 1px solid #2760ea"
+          cellpadding="0"
+          cellspacing="0"
+          class="card-action-secondary-button-width"
+        >
+          <tr>
+            <td
+              style="
+                height: 34px;
+                vertical-align: middle;
+                text-align: center;
+                padding: 0;
+              "
+              class="card-action-secondary-button-height"
+            >
+              <a
+                href="{{appBaseUri}}group/{{groupId}}/members?join-requests=true&source=email&emailType=network_digest"
+                target="_blank"
+                style="text-decoration: none; display: block"
+              >
+                <span
+                  style="
+                    color: #2760ea;
+                    font-size: 14px;
+                    font-weight: 700;
+                    text-decoration: none !important;
+                  "
+                  class="card-action-secondary-button-font"
+                  >{{actionText}}</span
+                >
+              </a>
+            </td>
+          </tr>
         </table>
-    {{/items}}
-    {{#actionText}}
-        <table style="width:100%;">
-            <tr><td style="height: 32px;" class="cardGap"><div ></div></td></tr>
-            <tr style="width:100%;max-width:536px;"><td style="width:100%;">
-                <table style="width: 100%; border-spacing: 0; border: none; background-color: #2760EA;" cellpadding="0" cellspacing="0">
-                    <tr>
-                      <td style="height: 48px; vertical-align: middle; text-align: center; padding: 0;" class="card-action-button">
-                        <a href="{{appBaseUri}}?notifications=true&source=email&emailType=network_digest" target="_blank" style="text-decoration: none; display: block;">
-                          <span style="color: white; font-size: 14px; font-weight: 700;">{{actionText}}</span>
-                        </a>
-                      </td>
-                    </tr>
-                </table>
-            </td></tr>
+      </td>
+    </tr>
+  </table>
+  {{/items}} {{#actionText}}
+  <table style="width: 100%">
+    <tr>
+      <td style="height: 32px" class="cardGap"><div></div></td>
+    </tr>
+    <tr style="width: 100%; max-width: 536px">
+      <td style="width: 100%">
+        <table
+          style="
+            width: 100%;
+            border-spacing: 0;
+            border: none;
+            background-color: #2760ea;
+          "
+          cellpadding="0"
+          cellspacing="0"
+        >
+          <tr>
+            <td
+              style="
+                height: 48px;
+                vertical-align: middle;
+                text-align: center;
+                padding: 0;
+              "
+              class="card-action-button"
+            >
+              <a
+                href="{{appBaseUri}}?notifications=true&source=email&emailType=network_digest"
+                target="_blank"
+                style="text-decoration: none; display: block"
+              >
+                <span style="color: white; font-size: 14px; font-weight: 700"
+                  >{{actionText}}</span
+                >
+              </a>
+            </td>
+          </tr>
         </table>
-    {{/actionText}}
+      </td>
+    </tr>
+  </table>
+  {{/actionText}}
 </td>

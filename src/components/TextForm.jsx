@@ -30,7 +30,10 @@ export default function TextForm() {
       onSubmit={handleSubmit}
       className="flex items-center justify-center mb-16 px-4"
     >
-      <div className="flex w-full max-w-5xl shadow-2xl overflow-hidden" style={{ borderRadius: '0', width: '95%' }}>
+      <div
+        className="flex w-full max-w-5xl shadow-2xl overflow-hidden"
+        style={{ borderRadius: '0', width: '95%' }}
+      >
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -39,9 +42,10 @@ export default function TextForm() {
                    placeholder-gray-500 focus:outline-none
                    transition-colors duration-200"
           style={{
-            fontFamily: 'Suisse Intl, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif',
+            fontFamily:
+              'Suisse Intl, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif',
             borderRadius: '0',
-            backgroundColor: '#edede1'
+            backgroundColor: '#edede1',
           }}
         />
         <button
@@ -51,10 +55,11 @@ export default function TextForm() {
                    transition-all duration-200 transform hover:scale-105
                    active:scale-95 flex items-center justify-center"
           style={{
-            fontFamily: 'Suisse Intl, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif',
+            fontFamily:
+              'Suisse Intl, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif',
             borderRadius: '0',
             backgroundColor: '#edede1',
-            width: '64px'
+            width: '64px',
           }}
           title="Add Text"
         >
