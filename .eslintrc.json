@@ -23,11 +23,19 @@
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
-    "no-unused-vars": "off"
+    "no-unused-vars": "warn"
   },
   "settings": {
     "react": {
       "version": "detect"
     }
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/__tests__/**/*.{js,jsx,ts,tsx}", "**/*.{spec,test}.{js,jsx,ts,tsx}"],
+      "rules": {
+        "no-unused-vars": "off"
+      }
+    }
+  ]
 }
