@@ -18,6 +18,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:app": "react-scripts test --testMatch='**/App.test.js' --watchAll=false",
+    "test:form": "react-scripts test --testMatch='**/TextForm.test.jsx' --watchAll=false",
+    "test:cloud": "react-scripts test --testMatch='**/TextCloud.test.jsx' --watchAll=false",
+    "test:all": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .js,.jsx",
     "format": "prettier --write ."
