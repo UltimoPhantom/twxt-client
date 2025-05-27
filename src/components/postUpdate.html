@@ -1,0 +1,48 @@
+<td style="background-color: #FFFFFF; border: 1px solid #EFF6F8; padding: 32px;" class="card-content">
+  <p style="font-family: Helvetica; font-weight: 700; color: #171717; margin: 0; font-size: 20px; line-height: 28px;" class="card-title">{{title}}</p>
+  {{#items}}
+    <table style="width:100%;">
+      <tr>
+        <td style="height: 32px;" class="cardGap">
+          <div></div>
+        </td>
+      </tr>
+      <tr style="vertical-align: top; width: 100%;">
+        <td style="width: 32px;">
+          <img style="object-fit: contain; background-color: #EDEDED; height: 32px; width: 32px; display: inline-block;" width="32" height="32" src="{{image}}" alt="Avatar" />
+        </td>
+        <td style="width: 12px;"></td>
+        <td style="vertical-align: top;">
+          <p style="font-family: Helvetica; font-weight: 400; color: #171717; margin: 0; font-size: 16px; line-height: 24px;" class="card-text">
+            <span style="font-weight: 700;">{{peopleNames}}</span>{{text}}{{#groupName}}<span style="font-weight: 700;">{{groupName}}</span>{{/groupName}}.
+          </p>
+          <p style="font-family: Helvetica; font-weight: 400; color: #5F5F5F; margin: 4px 0 0 0; font-size: 14px; line-height: 20px;">
+            {{postContentWeb}}
+          </p>
+        </td>
+      </tr>
+    </table>
+  {{/items}}
+  {{#actionText}}
+    <table style="width:100%;">
+      <tr>
+        <td style="height: 32px;" class="cardGap">
+          <div></div>
+        </td>
+      </tr>
+      <tr style="width:100%;max-width:536px;">
+        <td style="width:100%;">
+          <table style="width: 100%; border-spacing: 0; border: none; background-color: #2760EA;" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="height: 48px; vertical-align: middle; text-align: center; padding: 0;" class="card-action-button">
+                <a href="{{appBaseUri}}?notifications=true&source=email&emailType=network_digest" target="_blank" style="text-decoration: none; display: block;">
+                  <span style="color: white; font-size: 14px; font-weight: 700;">{{actionText}}</span>
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  {{/actionText}}
+</td>
