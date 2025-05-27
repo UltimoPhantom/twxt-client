@@ -139,20 +139,22 @@ export default function TextCloud() {
   return (
     <>
       <style>{customStyles}</style>
-      <div className="min-h-screen p-8" style={{ backgroundColor: '#f5f5f0' }}>
+      <div className="min-h-screen p-8" style={{ backgroundColor: '#edede1' }}>
         <div className="flex flex-wrap gap-8 justify-center max-w-7xl mx-auto">
           {deletedItem && (
             <div
               className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50
-                          bg-gray-800 text-white px-6 py-3 rounded-2xl shadow-xl
+                          bg-gray-800 text-white px-6 py-3 shadow-xl
                           flex items-center gap-3 animate-slide-up"
+              style={{ borderRadius: '0' }}
             >
               <span className="text-lg font-medium">Text deleted</span>
               <button
                 onClick={undoDelete}
                 className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700
-                         rounded-lg transition-colors duration-200 focus:outline-none 
+                         transition-colors duration-200 focus:outline-none 
                          focus:ring-2 focus:ring-blue-300 text-base font-medium"
+                style={{ borderRadius: '0' }}
               >
                 <svg
                   className="w-4 h-4"
@@ -185,39 +187,50 @@ export default function TextCloud() {
                 }
               }}
               className={`
-                group relative px-14 py-10 rounded-2xl shadow-lg cursor-pointer
-                transition-shadow duration-200 ease-in-out
-                hover:shadow-xl
-                focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50
+                group relative px-14 py-10 cursor-pointer
+                transition-all duration-200 ease-in-out
+                hover:-translate-x-1
+                focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50
                 ${copiedId === t._id ? 'animate-pulse' : ''}
-                ${
-                  isUrl(t.text_content)
-                    ? 'bg-gradient-to-br from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600'
-                    : 'hover:bg-gray-50'
-                }
               `}
               style={{
-                backgroundColor: copiedId === t._id ? '#4ade80' : '#f5f5f0',
+                backgroundColor: copiedId === t._id ? '#edede1' : '#edede1',
                 maxWidth: '600px',
                 minWidth: '350px',
+                borderRadius: '0px',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                transition: 'box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out',
+                fontFamily: 'Suisse Intl, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = '4px 6px 0px rgba(0, 0, 0, 1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
               }}
             >
               <button
                 onClick={(e) => deleteText(t._id, e)}
                 disabled={deletingId === t._id}
-                className="absolute top-3 right-3 p-2 rounded-full
-                         bg-red-500 hover:bg-red-600 text-white
+                className="absolute top-3 right-3 p-2
                          opacity-0 group-hover:opacity-100
                          transition-opacity duration-200
-                         focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-red-300
+                         focus:opacity-100 focus:outline-none
                          disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{ 
+                  borderRadius: '0',
+                  backgroundColor: '#edede1',
+                  border: '1px solid #000000'
+                }}
                 title="Delete text"
               >
                 {deletingId === t._id ? (
                   <svg
-                    className="w-4 h-4 animate-spin"
+                    className="w-5 h-5 animate-spin"
                     fill="none"
                     viewBox="0 0 24 24"
+                    stroke="#000000"
+                    strokeWidth="2"
                   >
                     <circle
                       className="opacity-25"
@@ -235,8 +248,8 @@ export default function TextCloud() {
                   </svg>
                 ) : (
                   <svg
-                    className="w-4 h-4"
-                    fill="currentColor"
+                    className="w-5 h-5"
+                    fill="#000000"
                     viewBox="0 0 20 20"
                   >
                     <path
@@ -248,29 +261,13 @@ export default function TextCloud() {
                 )}
               </button>
 
-              <div
-                className="absolute -top-16 left-1/2 transform -translate-x-1/2 
-                            bg-gray-900 text-white px-4 py-2 rounded-lg text-base font-medium
-                            opacity-0 group-hover:opacity-100 transition-opacity duration-200
-                            pointer-events-none z-10 whitespace-nowrap shadow-lg"
-              >
-                {copiedId === t._id
-                  ? '✓ Copied!'
-                  : isUrl(t.text_content)
-                    ? '🔗 Click to open'
-                    : '📋 Click to copy'}
-                <div
-                  className="absolute top-full left-1/2 transform -translate-x-1/2 
-                              border-4 border-transparent border-t-gray-900"
-                ></div>
-              </div>
+{/* Popup removed as requested */}
 
               <div
-                className={`
-                text-3xl font-bold leading-relaxed break-words font-serif
-                ${isUrl(t.text_content) ? 'text-white' : 'text-gray-700'}
-                ${copiedId === t._id ? 'text-gray-800' : ''}
-              `}
+                className="text-3xl font-bold leading-relaxed break-words text-gray-700"
+                style={{
+                  fontFamily: 'Suisse Intl, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif',
+                }}
               >
                 {isUrl(t.text_content) ? (
                   <div className="flex items-center gap-4">
@@ -311,7 +308,8 @@ export default function TextCloud() {
         </div>
 
         {texts.length === 0 && !deletedItem && (
-          <div className="text-center text-gray-400 text-2xl mt-20">
+          <div className="text-center text-gray-400 text-2xl mt-20" 
+               style={{fontFamily: 'Suisse Intl, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif'}}>
             No texts added yet. Start by adding some content!
           </div>
         )}
