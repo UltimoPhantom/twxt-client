@@ -23,7 +23,7 @@
     "test:cloud": "react-scripts test --testMatch='**/TextCloud.test.jsx' --watchAll=false",
     "test:all": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
-    "lint": "eslint . --ext .js,.jsx",
+    "lint": "eslint src",
     "format": "prettier --write ."
   },
   "eslintConfig": {
