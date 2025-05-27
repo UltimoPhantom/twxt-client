@@ -1,4 +1,4 @@
-name: Project1
+name: Checks
 
 on:
   pull_request:
@@ -6,13 +6,19 @@ on:
       - main
 
 jobs:
-  tests:
+  tests-and-lint:
     runs-on: ubuntu-latest
     container:
       image: node:20
     steps:
-      - uses: actions/checkout@v3
-        with: 
-          node-version: 20
-      -run: npm ci
-      -run: npm run test:all
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm run test:all
+
+      - name: Run lint
+        run: npm run lint
