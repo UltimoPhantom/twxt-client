@@ -139,8 +139,8 @@ export default function TextCloud() {
   return (
     <>
       <style>{customStyles}</style>
-      <div className="min-h-screen p-8" style={{ backgroundColor: '#edede1' }}>
-        <div className="flex flex-wrap gap-8 justify-center max-w-7xl mx-auto">
+      <div className="min-h-screen p-4 md:p-8" style={{ backgroundColor: '#edede1' }}>
+        <div className="flex flex-wrap gap-8 w-full" style={{ justifyContent: 'flex-start' }}>
           {deletedItem && (
             <div
               className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50
@@ -187,7 +187,7 @@ export default function TextCloud() {
                 }
               }}
               className={`
-                group relative px-14 py-10 cursor-pointer
+                group relative px-8 py-6 cursor-pointer
                 transition-all duration-200 ease-in-out
                 hover:-translate-x-1
                 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50
@@ -195,15 +195,15 @@ export default function TextCloud() {
               `}
               style={{
                 backgroundColor: copiedId === t._id ? '#edede1' : '#edede1',
-                maxWidth: '600px',
-                minWidth: '350px',
+                width: 'auto',
+                maxWidth: '90%',
                 borderRadius: '0px',
                 boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                 transition: 'box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out',
                 fontFamily: 'Suisse Intl, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '4px 6px 0px rgba(0, 0, 0, 1)';
+                e.currentTarget.style.boxShadow = '8px 10px 0px rgba(0, 0, 0, 1)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
@@ -267,6 +267,8 @@ export default function TextCloud() {
                 className="text-3xl font-bold leading-relaxed break-words text-gray-700"
                 style={{
                   fontFamily: 'Suisse Intl, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif',
+                  display: 'inline-block', // Display as inline-block to size based on content
+                  maxWidth: '100%', // Ensure it doesn't overflow its container
                 }}
               >
                 {isUrl(t.text_content) ? (

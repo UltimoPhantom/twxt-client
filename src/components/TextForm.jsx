@@ -30,7 +30,7 @@ export default function TextForm() {
       onSubmit={handleSubmit}
       className="flex items-center justify-center mb-16 px-4"
     >
-      <div className="flex w-full max-w-3xl shadow-2xl overflow-hidden" style={{ borderRadius: '0' }}>
+      <div className="flex w-full max-w-5xl shadow-2xl overflow-hidden" style={{ borderRadius: '0', width: '95%' }}>
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
