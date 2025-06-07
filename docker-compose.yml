@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: .
+    ports:
+      - "3000:80"   # Maps port 3000 on host to nginx port 80 in container
+    restart: unless-stopped
