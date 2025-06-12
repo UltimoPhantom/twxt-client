@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../config/api';
 
 export default function TextForm() {
   const [text, setText] = useState('');
@@ -9,7 +10,7 @@ export default function TextForm() {
     if (!text.trim()) return;
 
     try {
-      const response = await axios.post('http://localhost:5000/api/texts', {
+      const response = await axios.post(API_ENDPOINTS.TEXTS, {
         text_content: text,
       });
       setText('');

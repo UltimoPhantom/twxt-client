@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../config/api';
 
 export default function TextCloud() {
   const [texts, setTexts] = useState([]);
@@ -26,7 +27,7 @@ export default function TextCloud() {
 
   const fetchTexts = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/texts');
+      const res = await axios.get(API_ENDPOINTS.TEXTS);
       const sortedTexts = res.data.sort(
         (a, b) =>
           new Date(b.added_date || b.createdAt || b._id) -
@@ -66,7 +67,7 @@ export default function TextCloud() {
 
       setTexts(texts.filter((t) => t._id !== id));
 
-      await axios.delete(`http://localhost:5000/api/texts/${id}`);
+      await axios.delete(`${API_ENDPOINTS.TEXTS}/${id}`);
 
       setDeletedItem(itemToDelete);
 
@@ -95,7 +96,7 @@ export default function TextCloud() {
         setUndoTimer(null);
       }
 
-      const response = await axios.post('http://localhost:5000/api/texts', {
+      const response = await axios.post(API_ENDPOINTS.TEXTS, {
         text_content: deletedItem.text_content,
       });
 
