@@ -1,6 +1,9 @@
 # Step 1: Use Node.js to build the React app
 FROM node:18 AS build
 
+# Accept build-time environment variable
+ARG REACT_APP_SERVER_URL
+
 # Set working directory
 WORKDIR /app
 
@@ -12,6 +15,9 @@ RUN npm install
 
 # Copy rest of the application
 COPY . .
+
+# Set the env var so React can access it during build
+ENV REACT_APP_SERVER_URL=$REACT_APP_SERVER_URL
 
 # Build the production-ready React app
 RUN npm run build

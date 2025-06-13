@@ -40,13 +40,19 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      - name: Get backend URL from Parameter Store
+        id: get-ssm-param
+        run: |
+          BACKEND_URL=$(aws ssm get-parameter --name "/twxt/backend_url" --with-decryption --query "Parameter.Value" --output text)
+          echo "BACKEND_URL=$BACKEND_URL" >> $GITHUB_ENV
+
       - name: Login to AWS ECR
         run: |
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 454781577946.dkr.ecr.us-east-1.amazonaws.com
 
       - name: Build & Tag Frontend Docker image
         run: |
-          docker build -t frontend .
+          docker build --build-arg REACT_APP_SERVER_URL=${{ env.BACKEND_URL }} -t frontend .
           docker tag frontend:latest 454781577946.dkr.ecr.us-east-1.amazonaws.com/twxt/frontend:latest
 
       - name: Push Frontend Docker image
