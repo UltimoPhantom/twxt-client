@@ -38,10 +38,8 @@ export default function TextForm() {
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Enter your text or URL..."
-          className="p-5 w-full text-lg text-gray-800 
-                   placeholder-gray-500 focus:outline-none
-                   transition-colors duration-200"
+          className="p-5 w-full text-3xl font-bold leading-relaxed text-gray-700 
+                   focus:outline-none"
           style={{
             fontFamily:
               'Suisse Intl, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif',

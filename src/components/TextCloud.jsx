@@ -50,7 +50,13 @@ export default function TextCloud() {
 
   const copyToClipboard = async (text, id) => {
     try {
-      await navigator.clipboard.writeText(text);
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      
       setCopiedId(id);
       setTimeout(() => setCopiedId(null), 2000);
     } catch (err) {
@@ -63,7 +69,12 @@ export default function TextCloud() {
     try {
       setDeletingId(id);
 
-      const itemToDelete = texts.find((t) => t._id === id);
+      const itemIndex = texts.findIndex((t) => t._id === id);
+      const itemToDelete = texts[itemIndex];
+      
+      if (itemToDelete) {
+        itemToDelete.originalIndex = itemIndex;
+      }
 
       setTexts(texts.filter((t) => t._id !== id));
 
@@ -99,8 +110,16 @@ export default function TextCloud() {
       const response = await axios.post(API_ENDPOINTS.TEXTS, {
         text_content: deletedItem.text_content,
       });
-
-      setTexts((prevTexts) => [response.data, ...prevTexts]);
+      
+      const restoredItem = response.data;
+      
+      setTexts((prevTexts) => {
+        const newTextsList = [...prevTexts];
+        const originalIndex = deletedItem.originalIndex || 0;
+        const insertIndex = Math.min(originalIndex, newTextsList.length);
+        newTextsList.splice(insertIndex, 0, restoredItem);
+        return newTextsList;
+      });
 
       setDeletedItem(null);
     } catch (err) {
