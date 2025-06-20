@@ -47,57 +47,83 @@ export default function TextCloud() {
       return false;
     }
   };
-
   const copyToClipboard = async (text, id) => {
     try {
-      const textArea = document.createElement('textarea');
-      textArea.value = text;
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
+      // Try using modern Clipboard API first
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '0';
+        textArea.style.top = '0';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        const successful = document.execCommand('copy');
+        if (!successful) {
+          throw new Error('Copy command was unsuccessful');
+        }
+        
+        document.body.removeChild(textArea);
+      }
       
+      // Show copied indicator regardless of method
       setCopiedId(id);
       setTimeout(() => setCopiedId(null), 2000);
     } catch (err) {
       console.error('Failed to copy text: ', err);
+      // Still show the copied indicator to provide feedback
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 2000);
     }
   };
-
   const deleteText = async (id, e) => {
     e.stopPropagation();
     try {
       setDeletingId(id);
 
+      // Find the exact index of the item being deleted
       const itemIndex = texts.findIndex((t) => t._id === id);
-      const itemToDelete = texts[itemIndex];
       
+      // Create a copy to avoid mutating the original
+      const itemToDelete = itemIndex !== -1 ? {...texts[itemIndex]} : null;
+      
+      // Store the original index - crucial for proper restoration
       if (itemToDelete) {
         itemToDelete.originalIndex = itemIndex;
       }
 
+      // Update UI first for responsiveness
       setTexts(texts.filter((t) => t._id !== id));
 
+      // Then perform the actual deletion in the database
       await axios.delete(`${API_ENDPOINTS.TEXTS}/${id}`);
 
+      // Store deleted item for potential undo
       setDeletedItem(itemToDelete);
 
+      // Clear any existing undo timer
       if (undoTimer) {
         clearTimeout(undoTimer);
       }
 
+      // Set a new timer to clear the deleted item state
       const timer = setTimeout(() => {
         setDeletedItem(null);
       }, 5000);
       setUndoTimer(timer);
     } catch (err) {
       console.error('Failed to delete text: ', err);
-      fetchTexts();
+      fetchTexts(); // Refresh the list if deletion failed
     } finally {
       setDeletingId(null);
     }
   };
-
   const undoDelete = async () => {
     if (!deletedItem) return;
 
@@ -107,15 +133,19 @@ export default function TextCloud() {
         setUndoTimer(null);
       }
 
+      // Store original position info before adding back the item
+      const originalIndex = deletedItem.originalIndex !== undefined ? deletedItem.originalIndex : 0;
+      
       const response = await axios.post(API_ENDPOINTS.TEXTS, {
         text_content: deletedItem.text_content,
       });
       
       const restoredItem = response.data;
       
+      // Update texts state by inserting at the original position
       setTexts((prevTexts) => {
         const newTextsList = [...prevTexts];
-        const originalIndex = deletedItem.originalIndex || 0;
+        // Ensure we don't go out of bounds
         const insertIndex = Math.min(originalIndex, newTextsList.length);
         newTextsList.splice(insertIndex, 0, restoredItem);
         return newTextsList;

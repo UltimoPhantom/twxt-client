@@ -45,6 +45,8 @@ export default function TextForm() {
               'Suisse Intl, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif',
             borderRadius: '0',
             backgroundColor: '#edede1',
+            boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+            transition: 'box-shadow 0.3s ease',
           }}
         />
         <button

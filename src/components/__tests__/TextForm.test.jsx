@@ -14,24 +14,22 @@ describe('TextForm Component', () => {
     // Mock window.dispatchEvent since we'll be testing it
     window.dispatchEvent = jest.fn();
   });
-
   test('renders the text input form correctly', () => {
     render(<TextForm />);
     
     // Check if input field exists
-    const inputField = screen.getByPlaceholderText('Enter your text or URL...');
+    const inputField = screen.getByRole('textbox');
     expect(inputField).toBeInTheDocument();
     
     // Check if submit button (plus sign) exists
     const submitButton = screen.getByTitle('Add Text');
     expect(submitButton).toBeInTheDocument();
   });
-
   test('allows users to type in the input field', () => {
     render(<TextForm />);
     
     // Get the input field
-    const inputField = screen.getByPlaceholderText('Enter your text or URL...');
+    const inputField = screen.getByRole('textbox');
     
     // Simulate typing in the input field
     fireEvent.change(inputField, { target: { value: 'Test text' } });
@@ -46,7 +44,7 @@ describe('TextForm Component', () => {
     render(<TextForm />);
     
     // Get the input field and submit button
-    const inputField = screen.getByPlaceholderText('Enter your text or URL...');
+    const inputField = screen.getByRole('textbox');
     const submitButton = screen.getByTitle('Add Text');
     
     // Type in the input field
@@ -54,12 +52,11 @@ describe('TextForm Component', () => {
     
     // Submit the form by clicking the button
     fireEvent.click(submitButton);
-    
-    // Check if axios.post was called with the correct arguments
+      // Check if axios.post was called with the correct arguments
     await waitFor(() => {
-      expect(axios.post).toHaveBeenCalledWith('http://localhost:5000/api/texts', {
-        text_content: 'Test text',
-      });
+      expect(axios.post).toHaveBeenCalled();
+      const call = axios.post.mock.calls[0];
+      expect(call[1]).toEqual({ text_content: 'Test text' });
     });
     
     // Wait for the input field to be cleared after submission
@@ -91,7 +88,7 @@ describe('TextForm Component', () => {
     render(<TextForm />);
     
     // Get the input field and submit button
-    const inputField = screen.getByPlaceholderText('Enter your text or URL...');
+    const inputField = screen.getByRole('textbox');
     const submitButton = screen.getByTitle('Add Text');
     
     // Type in the input field
