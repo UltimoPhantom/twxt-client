@@ -3,7 +3,6 @@ import '@testing-library/jest-dom';
 import TextForm from '../TextForm.jsx';
 import axios from 'axios';
 
-// Ensure axios is properly mocked
 jest.mock('axios');
 
 describe('TextForm Component', () => {
