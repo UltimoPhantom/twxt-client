@@ -1,4 +1,3 @@
-// Mock axios implementation for jest
 const axios = {
   get: jest.fn(),
   post: jest.fn(),
