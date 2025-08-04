@@ -243,7 +243,7 @@ export default function TextCloud() {
                 }
               }}
               className={`
-                group relative px-8 py-6 cursor-pointer
+                group relative px-8 py-6 pb-10 cursor-pointer
                 transition-all duration-200 ease-in-out
                 hover:-translate-x-1
                 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50
